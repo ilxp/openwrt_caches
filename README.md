@@ -1,1 +1,1 @@
-openwrt-23.05 toolchain cache
+openwrt-24.10 toolchain cache
