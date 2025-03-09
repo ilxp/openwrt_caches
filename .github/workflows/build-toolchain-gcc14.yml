@@ -21,9 +21,6 @@ jobs:
             version: openwrt-24.10
         libc:
           - musl
-        tools:
-          - ccache
-          - noccache
 
     steps:
     - name: Checkout
