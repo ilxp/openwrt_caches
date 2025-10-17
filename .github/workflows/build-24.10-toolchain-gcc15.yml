@@ -1,4 +1,4 @@
-name: openwrt-24.10-gcc14
+name: openwrt-24.10-gcc15
 
 on: workflow_dispatch
 
@@ -13,14 +13,18 @@ jobs:
       fail-fast: false
       matrix:
         model:
-          #- nanopi-r5s
-          #- netgear_r8500
+          - nanopi-r5s
+          - netgear_r8500
           - x86_64
+          - redmi_ax6000
         tag:
-          - type: dev 
+          - type: dev
             version: openwrt-24.10
         libc:
           - musl
+        tools:
+          - ccache
+          - noccache
 
     steps:
     - name: Checkout
@@ -63,8 +67,8 @@ jobs:
       run: |
         [ "${{ matrix.libc }}" = "glibc" ] && export ENABLE_GLIBC=y
         [ "${{ matrix.tools }}" = "ccache" ] && export ENABLE_CCACHE=y
-        #BUILD_TOOLCHAIN=y ENABLE_LTO=y ENABLE_BPF=y USE_GCC14=y ENABLE_MOLD=y bash <(curl -sS ${{ secrets.script_url_general }}) ${{ matrix.tag.type }} ${{ matrix.model }}
-        BUILD_TOOLCHAIN=y ENABLE_LTO=y ENABLE_BPF=y USE_GCC14=y ENABLE_MOLD=y bash <(curl -sS ${{ secrets.script_url_oR }}) ${{ matrix.tag.type }} ${{ matrix.model }}
+        #BUILD_TOOLCHAIN=y ENABLE_LTO=y ENABLE_BPF=y USE_GCC15=y ENABLE_MOLD=y bash <(curl -sS ${{ secrets.script_url_general }}) ${{ matrix.tag.type }} ${{ matrix.model }}
+        BUILD_TOOLCHAIN=y ENABLE_LTO=y ENABLE_BPF=y USE_GCC15=y ENABLE_MOLD=y bash <(curl -sS ${{ secrets.script_url_oP }}) ${{ matrix.tag.type }} ${{ matrix.model }}
 
     - name: Create release
       uses: ncipollo/release-action@v1.14.0
